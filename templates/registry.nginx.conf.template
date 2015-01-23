@@ -3,6 +3,14 @@ upstream docker-registry {
 }
 
 server {
+  listen 80;
+  server_name %deployment_server_name%.%deployment_domain%; 
+
+  root /nowhere;
+  rewrite ^ https://%deployment_server_name%.%deployment_domain%$request_uri? permanent;
+}
+
+server {
   listen       443 ssl;
   server_name %deployment_server_name%.%deployment_domain%;
 
@@ -27,9 +35,9 @@ server {
 
   location / {
       # let Nginx know about our auth file
-      auth_basic              "Restricted";
-      auth_basic_user_file    docker-registry.htpasswd;
-
+      #auth_basic              "Restricted";
+      #auth_basic_user_file    docker-registry.htpasswd;
+      auth_basic off;
       proxy_pass http://docker-registry;
   }
 
