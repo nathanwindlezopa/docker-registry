@@ -2,8 +2,8 @@
 # DOCKER-VERSION
 # AUTHOR:         Based on work by Sam Alba <sam@docker.com>
 # DESCRIPTION:    Image with docker-registry project and dependecies behind an Nginx proxy
-# TO_BUILD:       docker build -rm -t nginx-registry .
-# TO_RUN:         docker run -p 80:80 -p 443:443 nginx-registry
+# TO_BUILD:       docker build -rm -t docker-registry .
+# TO_RUN:         docker run -p 443:443 docker-registry
 
 FROM phusion/baseimage:0.9.15
 
@@ -13,7 +13,7 @@ ENV HOME /root
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-RUN mkdir -p /opt/certs/  \
+RUN mkdir -p /opt/docker/certs/  \
 			 /root/templates/
 
 # Update
